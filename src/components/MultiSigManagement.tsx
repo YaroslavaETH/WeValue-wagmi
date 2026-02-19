@@ -83,7 +83,10 @@ function PendingTransactions() {
     functionName: 'required',
   });
 
-  if (!pendingTxIds || pendingTxIds.length === 0) {
+  const txIds = pendingTxIds as bigint[] | undefined;
+  const requiredCount = required as bigint | undefined;
+
+  if (!txIds || txIds.length === 0) {
     return (
       <div className="alert alert-info">
         Нет ожидающих транзакций
@@ -93,13 +96,13 @@ function PendingTransactions() {
 
   return (
     <div>
-      <h3>Ожидающие транзакции ({pendingTxIds.length})</h3>
+      <h3>Ожидающие транзакции ({txIds.length})</h3>
       <div className="list-group">
-        {pendingTxIds.map((txId) => (
+        {txIds.map((txId) => (
           <TransactionItem
             key={txId.toString()}
             txId={txId}
-            required={required || 2n}
+            required={requiredCount || 2n}
             userAddress={address}
           />
         ))}
@@ -138,7 +141,15 @@ function TransactionItem({
 
   if (!tx) return null;
 
-  const [target, value, data, executed, confirmations, description, timestamp] = tx;
+  const [target, value, _data, executed, confirmations, description, timestamp] = tx as [
+    `0x${string}`,
+    bigint,
+    `0x${string}`,
+    boolean,
+    bigint,
+    string,
+    bigint
+  ];
 
   const confirmTx = () => {
     writeContract({

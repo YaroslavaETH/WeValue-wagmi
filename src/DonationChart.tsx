@@ -3,8 +3,15 @@ import { useQuery } from '@tanstack/react-query';
 import {Chart} from 'chart.js/auto';
 import { formatEther } from 'viem';
 
+interface Donation {
+  id: string;
+  account: string;
+  amount: bigint;
+  blockTimestamp: string;
+}
+
 const DonationChart = () => {
-  const [donations, setDonations] = useState<[]>([]);
+  const [donations, setDonations] = useState<Donation[]>([]);
   const chartRef = useRef<Chart | null>(null);
 
   // Получаем данные из The Graph

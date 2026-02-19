@@ -1,4 +1,4 @@
-import { useReadContracts, useGasPrice, useBalance, type BaseError } from 'wagmi'
+import { useReadContracts, useBalance, type BaseError } from 'wagmi'
 import { WeValueContractConfig } from './contracts'
 import { formatUnits, formatEther } from 'viem'
 
@@ -43,9 +43,9 @@ export function ContractInfo() {
   return (
     <div className="mb-3">
       <div className="alert alert-success">
-        <strong>Общий баланс всех пользователей:</strong> {totalSupply !== undefined && decimals !== undefined ? formatUnits(totalSupply, decimals) : 'N/A'} {name}
+        <strong>Общий баланс всех пользователей:</strong> {totalSupply !== undefined && decimals !== undefined ? formatUnits(totalSupply as bigint, decimals as number) : 'N/A'} {name as string}
       </div>
-      <ReadContractProtectedAsset address={protectedAsset} />
+      <ReadContractProtectedAsset address={protectedAsset as `0x${string}` | undefined} />
     </div>
   )
 }
@@ -75,7 +75,7 @@ export function UserTokenBalance({ address }: ReadContractProps) {
     <div className="mt-3">
       <h3 className="mb-3">Созданная Вами ценность</h3>
       <div className="alert alert-primary">
-        <strong>Ваш баланс:</strong> {balance !== undefined && decimals !== undefined ? formatUnits(balance, decimals) : '0'} {name}
+        <strong>Ваш баланс:</strong> {balance !== undefined && decimals !== undefined ? formatUnits(balance as bigint, decimals as number) : '0'} {name as string}
       </div>
     </div>
   );
@@ -117,7 +117,7 @@ function ReadContractProtectedAsset({ address }: ReadContractProps) {
 
   return (
     <div className="alert alert-info">
-      <strong>Баланс фонда:</strong> {balance !== undefined && decimals !== undefined ? formatUnits(balance, decimals) : 'N/A'} {name}
+      <strong>Баланс фонда:</strong> {balance !== undefined && decimals !== undefined ? formatUnits(balance as bigint, decimals as number) : 'N/A'} {name as string}
     </div>
   )  
 }

@@ -1,9 +1,6 @@
-import { mainnet, sepolia } from 'wagmi/chains'
+import { sepolia } from 'wagmi/chains'
 import '@rainbow-me/rainbowkit/styles.css';
-import {
-  getDefaultConfig,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
+import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 import { http } from 'wagmi';
 
 const sepoliaRpcUrl = import.meta.env.VITE_SEPOLIA_RPC_URL;
